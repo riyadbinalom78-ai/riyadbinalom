@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riyad Bin Alom</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+:root{
+  --bg:#0b1220;
+  --card: rgba(255,255,255,0.05);
+  --muted: rgba(234,240,255,0.7);
+  --accent1:#2563eb;
+  --accent2:#7c3aed;
+  --accent-grad: linear-gradient(90deg,var(--accent1),var(--accent2));
+  --radius:16px;
+  --maxw:900px;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background: radial-gradient(circle at top left, rgba(124,58,237,0.08), transparent 30%), var(--bg);
+  color:#eaf0ff;
+  line-height:1.5;
+}
+a{color:#fff; text-decoration:none;}
+.container{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:20px;
+  text-align:center;
+}
+.top-social{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:20px;
+}
+.top-social a{
+  color:#eaf0ff;
+  font-size:24px;
+  transition:0.3s;
+}
+.top-social a:hover{color:var(--accent1);}
+.hero-img{
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  overflow:hidden;
+  margin:0 auto;
+  border:4px solid var(--accent-grad);
+}
+.hero-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition: transform 0.4s ease;
+}
+.hero-img img:hover{transform: scale(1.05);}
+h1{margin:12px 0 6px;font-size:32px;}
+h2{margin:4px 0 14px;font-weight:400;color:var(--muted);font-size:18px;}
+.section-title{font-size:20px;font-weight:700;margin-top:28px;margin-bottom:6px;}
+.section-sub{color:var(--muted);font-size:15px;margin:4px 0 12px;}
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:20px;
+  margin:20px auto;
+  max-width:700px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+.card:hover{transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4);}
+footer{margin-top:30px;font-size:14px;color:var(--muted);}
+.social-row{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:12px;
+}
+.social-row a{
+  font-size:20px;
+  color:#eaf0ff;
+  transition:0.3s;
+}
+.social-row a:hover{color:var(--accent1);}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Top Social Icons -->
+  <div class="top-social">
+    <a href="https://www.facebook.com/riyadbinalom33" target="_blank"><i class="fab fa-facebook-f"></i></a>
+   <a href="https://X.com/Riyad_Bin_Alom" target="_blank"><i class="fab fa-x-twitter"></i></a>
+    <a href="https://www.instagram.com/riyadbinalom33" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/@3RiyadBinalom" target="_blank"><i class="fab fa-youtube"></i></a>
+  </div>
+
+  <!-- Hero Section -->
+<h2>Hey, I’m</h2>
+  <h1>Riyad Bin Alom</h1>
+  <div class="hero-img">
+    <img src="riyad.jpg" alt="Riyad Bin Alom">
+  </div>
+  <br>
+  </h2> Lost sometimes, learning always. </h2>
+
+  <!-- About Section -->
+  <div class="card" id="about">
+    <div class="section-title">About</div>
+    <div class="section-sub">
+      <p>Knowledge never ends, and every new lesson lights the path forward. Exploring the depth of Islam brings both peace and strength. Challenges are not failures—they shape resilience, and every experience deepens thought and feeling. Life is a constant journey, where learning and growth never stop.</p>
+
+    </div>
+  </div>
+
+  <!-- Blog Section -->
+  <div class="card" id="blog">
+    <div class="section-title">Blog</div>
+
+    <div style="margin-bottom:20px;">
+      <h3>I am Muslim</h3>
+      <p style="line-height:1.7;">
+        Islam is a faith that emphasizes peace, compassion, and knowledge. Being a Muslim means striving for balance between spiritual growth and worldly responsibilities. It teaches respect for others and encourages a life of integrity and purpose. Through the guidance of Quran and Hadith, one learns the values of patience, justice, and humility in daily life, shaping a meaningful personal journey.
+      </p>
+    </div>
+
+    <div>
+      <h3>Me and my society</h3>
+      <p style="line-height:1.7;">
+        Every individual impacts the society they live in. By contributing positively, through knowledge, understanding, and ethical conduct, one builds stronger communities. Social responsibility is essential, and reflecting on history and current events helps create solutions for collective growth. I aim to learn, act wisely, and inspire others through example, promoting harmony and development within my surroundings.
+      </p>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="card" id="contact">
+    <div class="section-title">Contact</div>
+ 
+    <div class="section-sub"><b>Email:</b> <a href="mailto:riyadbinalom78@gmail.com" style="color:#eaf0ff">riyadbinalom78@gmail.com</a></div>
+    <div class="social-row">
+      <a href="https://www.facebook.com/riyadbinalom33" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://X.com/Riyad_Bin_Alom" target="_blank"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com/riyadbinalom33" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@3RiyadBinalom" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 • Riyad Bin Alom ❤️
+</footer>
+
+</body>
+</html>
