@@ -1,162 +1,979 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Riyad Bin Alom</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
+<title>কুরআন মাজিদ — ধারাবাহিক পড়ার নিয়ম</title> 
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
 <style>
+/* ════════ ROOT ════════ */
 :root{
-  --bg:#0b1220;
-  --card: rgba(255,255,255,0.05);
-  --muted: rgba(234,240,255,0.7);
-  --accent1:#2563eb;
-  --accent2:#7c3aed;
-  --accent-grad: linear-gradient(90deg,var(--accent1),var(--accent2));
-  --radius:16px;
-  --maxw:900px;
+  --bg:#07140d;--bg2:#0d2018;--bg3:#122a20;
+  --gold:#c9a84c;--gold2:#e2c97a;--gold3:#f0dfa0;
+  --cream:#f5f0e8;--cream2:rgba(245,240,232,0.78);--cream3:rgba(245,240,232,0.45);
+  --g1:#1a4a30;--g2:#2a6444;--g3:#3a7e58;
+  --makki:#d4a84a;--madani:#5ab88a;
+  --bdr:rgba(201,168,76,0.2);--bdr2:rgba(201,168,76,0.38);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Serif Bengali',serif;background:var(--bg);color:var(--cream);overflow-x:hidden}
+
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Cg fill='none' stroke='%23c9a84c' stroke-width='0.35' opacity='0.1'%3E%3Cpolygon points='35,3 46,13 58,13 65,24 58,34 46,34 35,44 24,34 12,34 5,24 12,13 24,13'/%3E%3Ccircle cx='35' cy='23' r='8'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  background: radial-gradient(circle at top left, rgba(124,58,237,0.08), transparent 30%), var(--bg);
-  color:#eaf0ff;
-  line-height:1.5;
+/* ════════ HERO ════════ */
+.hero{
+  position:relative;z-index:1;text-align:center;
+  padding:56px 20px 46px;
+  background:linear-gradient(180deg,#030a06 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--bdr);
 }
-a{color:#fff; text-decoration:none;}
-.container{
-  max-width:var(--maxw);
-  margin:0 auto;
-  padding:20px;
-  text-align:center;
+.hero-arabic{font-family:'Amiri',serif;font-size:clamp(2rem,5.5vw,3.8rem);color:var(--gold);letter-spacing:4px;line-height:1.5;text-shadow:0 0 40px rgba(201,168,76,0.3);animation:fd .9s ease both}
+.hero-sub-ar{font-family:'Amiri',serif;font-size:clamp(.85rem,2vw,1.1rem);color:var(--gold2);opacity:.8;margin:6px 0 22px;animation:fd 1.1s ease both}
+.hero-title{font-size:clamp(1.5rem,3.8vw,2.6rem);font-weight:700;line-height:1.3;animation:fd 1.3s ease both}
+.hero-title span{color:var(--gold)}
+.hero-desc{margin:12px auto 0;max-width:600px;font-size:clamp(.82rem,1.8vw,.97rem);color:var(--cream3);line-height:1.85;animation:fd 1.5s ease both}
+.gold-bar{width:70px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto;animation:fd 1.7s ease both}
+@keyframes fd{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ════════ STATS ════════ */
+.stats{position:relative;z-index:1;display:flex;flex-wrap:wrap;background:rgba(3,10,6,.85);border-bottom:1px solid var(--bdr)}
+.stat{padding:14px 24px;text-align:center;border-right:1px solid var(--bdr);flex:1;min-width:110px}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Cinzel Decorative',serif;font-size:1.35rem;color:var(--gold);line-height:1}
+.stat-l{font-size:.68rem;color:var(--cream3);margin-top:3px;letter-spacing:.8px}
+
+/* ════════ MAIN NAV ════════ */
+.main-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(3,10,6,.97);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--bdr);
+  overflow-x:auto;scrollbar-width:none;
 }
-.top-social{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  margin-bottom:20px;
+.main-nav::-webkit-scrollbar{display:none}
+.nav-tabs{display:flex;min-width:max-content;padding:0 14px}
+.tab-btn{
+  padding:15px 16px;background:none;border:none;
+  color:var(--cream3);font-family:'Noto Serif Bengali',serif;
+  font-size:.78rem;cursor:pointer;border-bottom:2px solid transparent;
+  transition:all .25s;white-space:nowrap;
 }
-.top-social a{
-  color:#eaf0ff;
-  font-size:24px;
-  transition:0.3s;
+.tab-btn:hover{color:var(--gold2)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600}
+
+/* ════════ SECTIONS ════════ */
+.section{display:none;animation:secIn .45s ease both}
+.section.active{display:block}
+@keyframes secIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.main-wrap{position:relative;z-index:1;max-width:940px;margin:0 auto;padding:36px 18px 80px}
+
+/* ════════ SECTION HEADER ════════ */
+.sec-hd{text-align:center;margin-bottom:34px}
+.sec-ey{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;opacity:.85}
+.sec-title{font-size:clamp(1.45rem,3.5vw,2.2rem);font-weight:700;color:var(--cream);line-height:1.3}
+.sec-title span{color:var(--gold)}
+
+/* ════════ COMPONENTS ════════ */
+.card{background:linear-gradient(135deg,rgba(26,74,51,.45),rgba(13,40,28,.6));border:1px solid var(--bdr);border-radius:16px;padding:26px;margin-bottom:18px;transition:border-color .3s,transform .3s;backdrop-filter:blur(4px)}
+.card:hover{border-color:var(--bdr2);transform:translateY(-2px)}
+.card-icon{font-size:1.8rem;margin-bottom:10px;display:block}
+.card h3{font-size:1.1rem;font-weight:700;color:var(--gold2);margin-bottom:9px}
+.card p,.card li{font-size:.92rem;color:var(--cream2);line-height:1.9}
+.card ul{list-style:none;padding:0}
+.card ul li::before{content:'✦ ';color:var(--gold);font-size:.68rem}
+
+.quote-box{border-left:3px solid var(--gold);padding:16px 22px;background:rgba(201,168,76,.07);border-radius:0 12px 12px 0;margin:20px 0}
+.q-arabic{font-family:'Amiri',serif;font-size:1.5rem;color:var(--gold2);text-align:right;direction:rtl;line-height:2;margin-bottom:6px}
+.q-trans{font-size:.9rem;color:var(--cream2);font-style:italic;line-height:1.8}
+.q-ref{font-size:.75rem;color:var(--gold);margin-top:5px;letter-spacing:1px}
+
+.highlight{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));border:1px solid var(--bdr2);border-radius:12px;padding:18px 22px;margin:14px 0}
+.highlight p{font-size:.91rem;color:var(--cream);line-height:1.9}
+.highlight strong{color:var(--gold2)}
+
+.divider{display:flex;align-items:center;gap:12px;margin:26px 0;color:rgba(201,168,76,.5);font-size:.68rem;letter-spacing:2px;text-transform:uppercase}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.28),transparent)}
+
+.step-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;margin:14px 0}
+.step-card{background:linear-gradient(145deg,rgba(26,74,51,.38),rgba(13,40,28,.55));border:1px solid var(--bdr);border-radius:14px;padding:20px;position:relative;overflow:hidden;transition:all .3s}
+.step-card:hover{border-color:var(--bdr2);transform:translateY(-3px)}
+.step-card::before{content:'';position:absolute;top:0;right:0;width:55px;height:55px;background:radial-gradient(circle at top right,rgba(201,168,76,.09),transparent 70%)}
+.step-num-big{font-family:'Cinzel Decorative',serif;font-size:2.4rem;color:rgba(201,168,76,.13);line-height:1;margin-bottom:7px}
+.step-card h4{font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:7px}
+.step-card p{font-size:.83rem;color:var(--cream3);line-height:1.8}
+
+.pillars{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;margin:18px 0}
+.pillar{text-align:center;padding:22px 14px;background:radial-gradient(ellipse at top,rgba(201,168,76,.09),rgba(13,40,28,.5));border:1px solid var(--bdr);border-radius:14px;transition:all .3s}
+.pillar:hover{border-color:var(--gold);transform:scale(1.03)}
+.pillar-icon{font-size:1.9rem;margin-bottom:9px}
+.pillar h4{font-size:.9rem;color:var(--gold2);font-weight:700;margin-bottom:5px}
+.pillar p{font-size:.78rem;color:var(--cream3);line-height:1.7}
+
+.routine-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.87rem}
+.routine-table th{background:rgba(201,168,76,.13);color:var(--gold);padding:11px 13px;text-align:left;font-weight:600;border-bottom:1px solid rgba(201,168,76,.22)}
+.routine-table td{padding:10px 13px;color:var(--cream2);border-bottom:1px solid rgba(201,168,76,.07);line-height:1.7;vertical-align:top}
+.routine-table tr:hover td{background:rgba(201,168,76,.03)}
+
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:600}
+.badge-gold{background:rgba(201,168,76,.18);color:var(--gold);border:1px solid var(--bdr2)}
+.badge-green{background:rgba(80,160,120,.14);color:#7ecfaa;border:1px solid rgba(80,160,120,.28)}
+.badge-blue{background:rgba(80,140,200,.14);color:#90c0f0;border:1px solid rgba(80,140,200,.26)}
+
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:14px 0}
+.resource-card{background:rgba(13,40,28,.6);border:1px solid var(--bdr);border-radius:12px;padding:18px;transition:all .3s}
+.resource-card:hover{border-color:var(--bdr2);transform:translateY(-2px)}
+.resource-type{font-size:.66rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:7px}
+.resource-card h4{font-size:.93rem;color:var(--cream);font-weight:700;margin-bottom:5px}
+.resource-card p{font-size:.8rem;color:var(--cream3);line-height:1.7}
+
+.faq-item{border-bottom:1px solid rgba(201,168,76,.1);padding:16px 0}
+.faq-q{display:flex;align-items:center;gap:11px;cursor:pointer;color:var(--gold2);font-weight:600;font-size:.96rem;transition:color .2s;user-select:none}
+.faq-q:hover{color:var(--gold)}
+.faq-icon{color:var(--gold);font-size:1rem;transition:transform .3s;flex-shrink:0}
+.faq-q.open .faq-icon{transform:rotate(45deg)}
+.faq-a{display:none;padding:12px 0 0 26px;font-size:.88rem;color:var(--cream3);line-height:1.95}
+.faq-a.open{display:block}
+
+.note-template{background:rgba(245,240,232,.03);border:1px dashed var(--bdr2);border-radius:12px;padding:22px;margin:14px 0}
+.note-field{margin-bottom:14px}
+.note-label{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:5px}
+.note-line{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(201,168,76,.22);color:var(--cream);font-family:'Noto Serif Bengali',serif;font-size:.88rem;padding:7px 0;outline:none;transition:border-color .3s}
+.note-line:focus{border-bottom-color:var(--gold)}
+.note-line::placeholder{color:var(--cream3)}
+
+/* ════════ FLOWCHART SECTION ════════ */
+/* Search */
+.flow-search-wrap{
+  padding:16px 0 20px;
+  position:relative;
 }
-.top-social a:hover{color:var(--accent1);}
-.hero-img{
-  width:240px;
-  height:240px;
-  border-radius:50%;
-  overflow:hidden;
-  margin:0 auto;
-  border:4px solid var(--accent-grad);
+.flow-search-inner{
+  position:relative;
+  display:flex;align-items:center;gap:10px;
+  max-width:560px;
 }
-.hero-img img{
+.flow-search-inner input{
   width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  transition: transform 0.4s ease;
+  background:rgba(255,255,255,.04);
+  border:1.5px solid var(--bdr2);
+  border-radius:10px;
+  padding:11px 42px 11px 16px;
+  color:var(--cream);
+  font-family:'Noto Serif Bengali',serif;
+  font-size:.92rem;
+  outline:none;
+  transition:border-color .25s,box-shadow .25s;
 }
-.hero-img img:hover{transform: scale(1.05);}
-h1{margin:12px 0 6px;font-size:32px;}
-h2{margin:4px 0 14px;font-weight:400;color:var(--muted);font-size:18px;}
-.section-title{font-size:20px;font-weight:700;margin-top:28px;margin-bottom:6px;}
-.section-sub{color:var(--muted);font-size:15px;margin:4px 0 12px;}
-.card{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:20px;
-  margin:20px auto;
-  max-width:700px;
-  border:1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+.flow-search-inner input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
+.flow-search-inner input::placeholder{color:var(--cream3)}
+.search-clear{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:rgba(201,168,76,.15);border:none;
+  color:var(--gold2);font-size:.8rem;cursor:pointer;
+  width:22px;height:22px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;
+  font-weight:700;transition:background .2s;
 }
-.card:hover{transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4);}
-footer{margin-top:30px;font-size:14px;color:var(--muted);}
-.social-row{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  margin-top:12px;
+.search-clear.show{display:flex}
+.search-clear:hover{background:rgba(201,168,76,.3)}
+.search-results-info{
+  margin-top:8px;font-size:.78rem;color:var(--gold);
+  min-height:20px;
 }
-.social-row a{
-  font-size:20px;
-  color:#eaf0ff;
-  transition:0.3s;
+
+/* Legend */
+.flow-legend{
+  display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+  padding:10px 0 20px;
+  font-size:.75rem;color:var(--cream3);
 }
-.social-row a:hover{color:var(--accent1);}
+.leg-item{display:flex;align-items:center;gap:6px}
+.leg-dot{width:9px;height:9px;border-radius:50%}
+.ld-m{background:var(--makki)}
+.ld-d{background:var(--madani)}
+
+/* Progress */
+.flow-progress{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:12px 18px;
+  background:rgba(3,10,6,.6);
+  border:1px solid var(--bdr);
+  border-radius:10px;
+  margin-bottom:22px;
+}
+.fp-label{font-size:.78rem;color:var(--gold);white-space:nowrap;font-weight:600}
+.fp-bar-out{flex:1;min-width:130px;height:7px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;border:1px solid rgba(201,168,76,.1)}
+.fp-bar-in{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--g3),var(--gold));transition:width .5s ease}
+.fp-pct{font-size:.78rem;color:var(--cream3);white-space:nowrap}
+.fp-reset{padding:5px 12px;border-radius:6px;background:rgba(201,168,76,.08);border:1px solid var(--bdr2);color:var(--gold2);font-size:.7rem;cursor:pointer;font-family:'Noto Serif Bengali',serif;transition:all .2s}
+.fp-reset:hover{background:rgba(201,168,76,.18)}
+
+/* Phase blocks */
+.phase-wrap{margin-bottom:8px}
+.phase-hdr{
+  display:flex;align-items:center;gap:14px;padding:15px 18px;
+  background:linear-gradient(90deg,rgba(201,168,76,.12),rgba(201,168,76,.02));
+  border:1px solid var(--bdr2);border-radius:12px;
+  cursor:pointer;transition:all .3s;user-select:none;
+}
+.phase-hdr:hover{background:linear-gradient(90deg,rgba(201,168,76,.19),rgba(201,168,76,.04))}
+.phase-hdr.open{border-radius:12px 12px 0 0;border-bottom-color:transparent}
+.phase-circle{
+  width:40px;height:40px;flex-shrink:0;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel Decorative',serif;font-size:.82rem;font-weight:700;
+  color:var(--bg);background:linear-gradient(135deg,var(--gold2),var(--gold));
+  box-shadow:0 0 14px rgba(201,168,76,.3);
+}
+.phase-info{flex:1;min-width:0}
+.phase-name{font-size:.97rem;font-weight:700;color:var(--cream);line-height:1.2}
+.phase-desc{font-size:.73rem;color:var(--cream3);margin-top:3px}
+.phase-meta{text-align:right;flex-shrink:0}
+.phase-count{font-size:.76rem;color:var(--gold);font-weight:600}
+.phase-period{font-size:.66rem;color:var(--cream3);margin-top:2px}
+.phase-arr{color:var(--gold);transition:transform .3s;font-size:.82rem;flex-shrink:0}
+.phase-hdr.open .phase-arr{transform:rotate(180deg)}
+
+.phase-body{
+  display:none;
+  border:1px solid var(--bdr);border-top:none;
+  border-radius:0 0 12px 12px;
+  background:rgba(7,20,13,.75);overflow:hidden;
+}
+.phase-body.open{display:block}
+
+.surah-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(275px,1fr));
+  gap:1px;background:rgba(201,168,76,.04);
+}
+.surah-card{
+  padding:13px 15px;background:var(--bg2);cursor:pointer;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.surah-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:transparent;transition:background .2s;
+}
+.surah-card:hover{background:var(--bg3)}
+.surah-card:hover::before{background:var(--gold)}
+.surah-card.done{background:rgba(26,74,48,.3)}
+.surah-card.done::before{background:var(--madani)}
+.surah-card.search-hl{background:rgba(201,168,76,.08);border-left:3px solid var(--gold)}
+
+.sc-top{display:flex;align-items:flex-start;gap:9px;margin-bottom:5px}
+.sc-num{
+  background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.26);
+  color:var(--gold);font-size:.68rem;font-weight:700;
+  padding:2px 6px;border-radius:5px;flex-shrink:0;
+  margin-top:2px;min-width:34px;text-align:center;
+}
+.sc-name{font-size:.93rem;color:var(--gold2);font-weight:700;line-height:1.2}
+.sc-arabic{font-family:'Amiri',serif;font-size:1.05rem;color:rgba(201,168,76,.55);margin-left:auto;flex-shrink:0}
+.sc-tags{display:flex;gap:5px;margin-bottom:5px}
+.s-tag{font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px}
+.st-mk{background:rgba(212,168,74,.1);color:#e8b84a;border:1px solid rgba(212,168,74,.26)}
+.st-md{background:rgba(90,184,138,.09);color:#6dcfaa;border:1px solid rgba(90,184,138,.23)}
+.sc-desc{font-size:.79rem;color:var(--cream3);line-height:1.65}
+.sc-check{position:absolute;top:10px;right:10px;font-size:.9rem;opacity:0;transition:opacity .2s}
+.surah-card.done .sc-check{opacity:1}
+
+.flow-connector{display:flex;align-items:center;justify-content:center;height:32px;color:var(--gold);font-size:1.4rem;opacity:.4;position:relative;z-index:1}
+
+/* ════════ SCROLL TOP ════════ */
+.scroll-top{
+  position:fixed;bottom:22px;right:22px;z-index:200;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--g1);border:1px solid var(--bdr2);
+  color:var(--gold);font-size:1.05rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:all .3s;box-shadow:0 4px 20px rgba(0,0,0,.5);
+}
+.scroll-top.show{opacity:1}
+.scroll-top:hover{background:var(--g2)}
+
+/* ════════ FOOTER ════════ */
+.footer{
+  position:relative;z-index:1;text-align:center;
+  padding:28px 20px;border-top:1px solid var(--bdr);
+  color:var(--cream3);font-size:.75rem;line-height:2;
+}
+.footer-ar{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold);margin-bottom:6px}
+
+/* ════════ SCROLLBAR ════════ */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.32);border-radius:3px}
+
+/* ════════ RESPONSIVE ════════ */
+@media(max-width:600px){
+  .hero{padding:38px 14px 30px}
+  .main-wrap{padding:22px 12px 60px}
+  .card{padding:18px}
+  .step-grid,.pillars,.resource-grid{grid-template-columns:1fr}
+  .surah-grid{grid-template-columns:1fr}
+  .stat{padding:10px 12px}
+}
 </style>
 </head>
 <body>
 
-<div class="container">
-
-  <!-- Top Social Icons -->
-  <div class="top-social">
-    <a href="https://www.facebook.com/riyadbinalom33" target="_blank"><i class="fab fa-facebook-f"></i></a>
-   <a href="https://X.com/Riyad_Bin_Alom" target="_blank"><i class="fab fa-x-twitter"></i></a>
-    <a href="https://www.instagram.com/riyadbinalom33" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.youtube.com/@3RiyadBinalom" target="_blank"><i class="fab fa-youtube"></i></a>
-  </div>
-
-  <!-- Hero Section -->
-<h2>Hey, I’m</h2>
-  <h1>Riyad Bin Alom</h1>
-  <div class="hero-img">
-    <img src="riyad.jpg" alt="Riyad Bin Alom">
-  </div>
-  <br>
-  </h2> Lost sometimes, learning always. </h2>
-
-  <!-- About Section -->
-  <div class="card" id="about">
-    <div class="section-title">About</div>
-    <div class="section-sub">
-      <p>Knowledge never ends, and every new lesson lights the path forward. Exploring the depth of Islam brings both peace and strength. Challenges are not failures—they shape resilience, and every experience deepens thought and feeling. Life is a constant journey, where learning and growth never stop.</p>
-
-    </div>
-  </div>
-
-  <!-- Blog Section -->
-  <div class="card" id="blog">
-    <div class="section-title">Blog</div>
-
-    <div style="margin-bottom:20px;">
-      <h3>I am Muslim</h3>
-      <p style="line-height:1.7;">
-        Islam is a faith that emphasizes peace, compassion, and knowledge. Being a Muslim means striving for balance between spiritual growth and worldly responsibilities. It teaches respect for others and encourages a life of integrity and purpose. Through the guidance of Quran and Hadith, one learns the values of patience, justice, and humility in daily life, shaping a meaningful personal journey.
-      </p>
-    </div>
-
-    <div>
-      <h3>Me and my society</h3>
-      <p style="line-height:1.7;">
-        Every individual impacts the society they live in. By contributing positively, through knowledge, understanding, and ethical conduct, one builds stronger communities. Social responsibility is essential, and reflecting on history and current events helps create solutions for collective growth. I aim to learn, act wisely, and inspire others through example, promoting harmony and development within my surroundings.
-      </p>
-    </div>
-  </div>
-
-  <!-- Contact Section -->
-  <div class="card" id="contact">
-    <div class="section-title">Contact</div>
- 
-    <div class="section-sub"><b>Email:</b> <a href="mailto:riyadbinalom78@gmail.com" style="color:#eaf0ff">riyadbinalom78@gmail.com</a></div>
-    <div class="social-row">
-      <a href="https://www.facebook.com/riyadbinalom33" target="_blank"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://X.com/Riyad_Bin_Alom" target="_blank"><i class="fab fa-x-twitter"></i></a>
-      <a href="https://instagram.com/riyadbinalom33" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.youtube.com/@3RiyadBinalom" target="_blank"><i class="fab fa-youtube"></i></a>
-    </div>
-  </div>
-
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="hero-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+  <div class="hero-sub-ar">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ — পড়ো তোমার প্রভুর নামে যিনি সৃষ্টি করেছেন</div>
+  <div class="gold-bar"></div>
+  <div class="hero-title">কুরআন মাজিদ — <span> পড়ার ধারাবাহিকতা   </span></div>
+  <div class="hero-desc">একজন সাধারণ পাঠক থেকে সচেতন মুসলিম হওয়ার যাত্রা · ১১৪ সূরার ফ্লোচার্ট সহ সম্পূর্ণ কোর্স</div>
 </div>
 
-<footer>
-  © 2026 • Riyad Bin Alom ❤️
-</footer>
+<!-- ══════════ STATS ══════════ -->
+<div class="stats">
+  <div class="stat"><div class="stat-n">১১৪</div><div class="stat-l">মোট সূরা</div></div>
+  <div class="stat"><div class="stat-n">৮৬</div><div class="stat-l">মক্কি সূরা</div></div>
+  <div class="stat"><div class="stat-n">২৮</div><div class="stat-l">মাদানী সূরা</div></div>
+  <div class="stat"><div class="stat-n">৬,২৩৬</div><div class="stat-l">মোট আয়াত</div></div>
+  <div class="stat"><div class="stat-n">৯</div><div class="stat-l">কোর্স বিভাগ</div></div>
+</div>
 
+<!-- ══════════ MAIN NAV ══════════ -->
+<div class="main-nav">
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('why',this)">০১. কেন পড়বো?</button>
+    <button class="tab-btn" onclick="showTab('what',this)">০২. কুরআন কী?</button>
+    <button class="tab-btn" onclick="showTab('prep',this)">০৩. প্রস্তুতি</button>
+    <button class="tab-btn" onclick="showTab('howread',this)">০৪. কীভাবে পড়বো?</button>
+    <button class="tab-btn" onclick="showTab('routine',this)">০৫. দৈনিক রুটিন</button>
+    <button class="tab-btn" onclick="showTab('notes',this)">০৬. নোট পদ্ধতি</button>
+    <button class="tab-btn" onclick="showTab('flow',this)">০৭. ১১৪ সূরার ফ্লোচার্ট</button>
+    <button class="tab-btn" onclick="showTab('life',this)">০৮. জীবনে প্রয়োগ</button>
+    <button class="tab-btn" onclick="showTab('extra',this)">০৯. বাড়তি পড়া</button>
+  </div>
+</div>
+
+<!-- ══════════ CONTENT ══════════ -->
+<div class="main-wrap">
+
+<!-- ═══ 01. কেন পড়বো ═══ -->
+<div id="why" class="section active">
+  <div class="sec-hd"><div class="sec-ey">Section 01</div><div class="sec-title">আমি কেন <span>কুরআন পড়বো?</span></div></div>
+
+  <div class="quote-box">
+    <div class="q-arabic">وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ</div>
+    <div class="q-trans">"আমি কুরআনকে স্মরণের জন্য সহজ করে দিয়েছি — তাহলে কি কোনো স্মরণকারী আছে?"</div>
+    <div class="q-ref">সূরা আল-কামার: ১৭</div>
+  </div>
+
+  <div class="step-grid">
+    <div class="step-card"><div class="step-num-big">০১</div><h4>🧭 দিকনির্দেশনা</h4><p>জীবনের প্রতিটি পরিস্থিতিতে — সংকটে, আনন্দে, সিদ্ধান্তের মুহূর্তে — কুরআন আপনাকে সঠিক পথ দেখায়। এটি মানুষের জন্য লেখা একমাত্র নির্ভুল ম্যানুয়াল।</p></div>
+    <div class="step-card"><div class="step-num-big">০২</div><h4>🧠 জ্ঞান ও প্রজ্ঞা</h4><p>সৃষ্টিকর্তার সরাসরি বাণী পড়ার মাধ্যমে মানুষ, মহাবিশ্ব ও জীবনের উদ্দেশ্য সম্পর্কে এমন জ্ঞান পাওয়া যায় যা অন্য কোনো উৎস থেকে পাওয়া সম্ভব নয়।</p></div>
+    <div class="step-card"><div class="step-num-big">০৩</div><h4>💚 আত্মিক প্রশান্তি</h4><p>কুরআন পড়লে অন্তরে যে প্রশান্তি আসে তা বৈজ্ঞানিকভাবেও স্বীকৃত। উদ্বেগ, হতাশা ও একাকীত্বের মুহূর্তে কুরআনই সবচেয়ে বড় সঙ্গী।</p></div>
+    <div class="step-card"><div class="step-num-big">০৪</div><h4>🌍 সঠিক পরিচয়</h4><p>একজন মুসলিম হিসেবে নিজের বিশ্বাস, মূল্যবোধ ও দায়িত্ব সম্পর্কে সুস্পষ্ট ধারণা পেতে কুরআন পড়ার বিকল্প নেই।</p></div>
+    <div class="step-card"><div class="step-num-big">০৫</div><h4>⚖️ নৈতিক কম্পাস</h4><p>ন্যায়-অন্যায়, সত্য-মিথ্যা, ভালো-মন্দ — এই সব বিষয়ে কুরআন এত স্পষ্ট মানদণ্ড দেয় যা মানুষকে নৈতিকভাবে উন্নত করে।</p></div>
+    <div class="step-card"><div class="step-num-big">০৬</div><h4>🤲 আল্লাহর সাথে সম্পর্ক</h4><p>কুরআন পড়া মানে আল্লাহর কথা শোনা। প্রতিটি আয়াত পড়ার সময় অনুভব করুন — আল্লাহ সরাসরি আপনাকে ডাকছেন।</p></div>
+  </div>
+
+  <div class="highlight"><p><strong>সবচেয়ে সৎ উত্তর:</strong> আপনি কুরআন পড়বেন কারণ আপনি এমন একটি মানচিত্র চান যা কখনো ভুল পথে নিয়ে যায় না। জীবনের শুরু থেকে শেষ পর্যন্ত — জন্ম, মৃত্যু, সম্পর্ক, অর্থনীতি, আত্মা — সবকিছুর উত্তর এখানে আছে।</p></div>
+</div>
+
+<!-- ═══ 02. কুরআন কী ═══ -->
+<div id="what" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 02</div><div class="sec-title">কুরআন <span>আসলে কী?</span></div></div>
+
+  <div class="card"><span class="card-icon">📖</span><h3>সংজ্ঞা ও পরিচয়</h3><p>কুরআন মাজিদ হলো আল্লাহ তাআলার কালাম — তাঁর সরাসরি বাণী — যা জিব্রাইল (আ.)-এর মাধ্যমে নবী মুহাম্মাদ (সা.)-এর উপর ২৩ বছরে নাযিল হয়েছে। এটি একই সাথে ধর্মগ্রন্থ, আইনগ্রন্থ, ইতিহাস, বিজ্ঞান ও কবিতার এক অনন্য সংমিশ্রণ।</p></div>
+
+  <div class="step-grid">
+    <div class="step-card"><h4>📊 সংখ্যায় কুরআন</h4>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ <strong style="color:var(--gold2)">১১৪টি</strong> সূরা</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ <strong style="color:var(--gold2)">৩০টি</strong> পারা</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ <strong style="color:var(--gold2)">৬,২৩৬টি</strong> আয়াত</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ <strong style="color:var(--gold2)">৮৬টি</strong> মক্কি সূরা</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ <strong style="color:var(--gold2)">২৮টি</strong> মাদানী সূরা</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ <strong style="color:var(--gold2)">২৩ বছরে</strong> নাযিল</li>
+      </ul>
+    </div>
+    <div class="step-card"><h4>🎯 কুরআনের মূল বিষয়সমূহ</h4>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ তাওহীদ — আল্লাহর একত্ব</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ আখিরাত — পরকালীন জীবন</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ নবীদের কাহিনী ও শিক্ষা</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ শরিয়াহ — জীবনবিধান</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ নৈতিকতা ও চরিত্র গঠন</li>
+        <li style="padding:5px 0;font-size:.87rem;color:var(--cream2)">✦ সামাজিক ন্যায়বিচার</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider">মক্কি বনাম মাদানী কুরআন</div>
+  <div class="step-grid">
+    <div class="step-card"><h4>🕌 মক্কি কুরআন <span style="font-size:.68rem;padding:2px 7px;border-radius:4px;background:rgba(212,168,74,.12);color:#e8b84a;border:1px solid rgba(212,168,74,.26);margin-left:5px">মক্কি</span></h4><p>নবুওয়াতের প্রথম ১৩ বছর। মূল বিষয়: আকিদা, ঈমান, তাওহীদ, আখিরাত, জান্নাত-জাহান্নাম। সূরাগুলো ছোট, তীব্র, কাব্যময় এবং হৃদয়গ্রাহী।</p></div>
+    <div class="step-card"><h4>🕌 মাদানী কুরআন <span style="font-size:.68rem;padding:2px 7px;border-radius:4px;background:rgba(90,184,138,.1);color:#6dcfaa;border:1px solid rgba(90,184,138,.25);margin-left:5px">মাদানী</span></h4><p>হিজরতের পর ১০ বছর। মূল বিষয়: আইন, সমাজ, পরিবার, রাষ্ট্র, যুদ্ধ, চুক্তি। সূরাগুলো লম্বা, গদ্যধর্মী এবং বিস্তারিত।</p></div>
+  </div>
+
+  <div class="highlight"><p><strong>গুরুত্বপূর্ণ সত্য:</strong> কুরআন কোনো ধাপে ধাপে লেখা বই নয়। এটি <strong>জীবনের প্রয়োজনে নাযিল হওয়া</strong> এক জীবন্ত দলিল। তাই এটি পড়তে হবে প্রসঙ্গ বুঝে, ঐতিহাসিক পটভূমি মাথায় রেখে।</p></div>
+</div>
+
+<!-- ═══ 03. প্রস্তুতি ═══ -->
+<div id="prep" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 03</div><div class="sec-title">পড়ার আগে <span>যা প্রস্তুত করবেন</span></div></div>
+
+  <div class="divider">মানসিক প্রস্তুতি</div>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-icon">🤍</div><h4>নিয়ত ঠিক করুন</h4><p>পড়ছি আল্লাহকে জানতে — দেখানো বা অভ্যাসের জন্য নয়</p></div>
+    <div class="pillar"><div class="pillar-icon">🧘</div><h4>মন শান্ত করুন</h4><p>ফোন বন্ধ রাখুন, ৫ মিনিট চুপ বসুন, তারপর শুরু করুন</p></div>
+    <div class="pillar"><div class="pillar-icon">🙋</div><h4>নিজেকে সম্বোধিত ভাবুন</h4><p>"এই আয়াতটি আমার জন্য" — এই ভাবনা নিয়ে পড়ুন</p></div>
+    <div class="pillar"><div class="pillar-icon">📝</div><h4>নোটবুক রাখুন</h4><p>পাশে একটি নোটবুক রাখুন যাতে মুহূর্তের অনুভূতি হারিয়ে না যায়</p></div>
+  </div>
+
+  <div class="divider">উপকরণ তালিকা</div>
+  <div class="card"><h3>✅ আপনার কাছে যা আছে</h3><ul><li>বাংলা অনুবাদ সহ কুরআন — ✅ আছে</li><li>তাফসির গ্রন্থ — ✅ আছে</li></ul></div>
+
+  <div class="resource-grid">
+    <div class="resource-card"><div class="resource-type">অ্যাপ</div><h4>Quran Majeed / iQuran</h4><p>বাংলা অনুবাদ, অডিও তিলাওয়াত এবং তাফসির একসাথে — চলতে চলতে পড়ার জন্য</p></div>
+    <div class="resource-card"><div class="resource-type">ওয়েবসাইট</div><h4>quran.com</h4><p>যেকোনো আয়াতের একাধিক তাফসির ও অনুবাদ পাশাপাশি দেখার সুবিধা</p></div>
+    <div class="resource-card"><div class="resource-type">নোটবুক</div><h4>একটি নির্দিষ্ট নোটবুক</h4><p>শুধু কুরআন পাঠের জন্য আলাদা একটি নোটবুক রাখুন। ডিজিটাল নোটও চলবে</p></div>
+    <div class="resource-card"><div class="resource-type">পটভূমি জ্ঞান</div><h4>নবীর (সা.) জীবনী</h4><p>সীরাতুন নবী পড়লে কুরআনের প্রসঙ্গ বুঝতে ১০ গুণ সহজ হয়</p></div>
+  </div>
+
+  <div class="highlight"><p><strong>একটি পরামর্শ:</strong> পড়া শুরুর আগে সংক্ষেপে সেই সূরার <strong>শানে নুযুল</strong> (কোন পরিস্থিতিতে নাযিল হয়েছে) জেনে নিন। এটি কুরআনকে জীবন্ত করে তোলে।</p></div>
+</div>
+
+<!-- ═══ 04. কীভাবে পড়বো ═══ -->
+<div id="howread" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 04</div><div class="sec-title">কীভাবে ও কী <span>মনে করে পড়বেন?</span></div></div>
+
+  <div class="divider">পড়ার ধাপ — ধারাবাহিক পদ্ধতি</div>
+  <div class="step-grid">
+    <div class="step-card"><div class="step-num-big">১</div><h4>বিসমিল্লাহ ও দোয়া</h4><p>পড়া শুরুর আগে বলুন: "আল্লাহুম্মা ইন্নি আসআলুকা ফাহমাল কুরআন।" — হে আল্লাহ, আমাকে কুরআন বোঝার তৌফিক দাও।</p></div>
+    <div class="step-card"><div class="step-num-big">২</div><h4>সূরা পরিচিতি জানুন</h4><p>প্রতিটি সূরা পড়ার আগে: ক) মক্কি না মাদানী? খ) মূল বিষয় কী? গ) কোন প্রেক্ষাপটে নাযিল? — ৩ মিনিট এতেই দিন।</p></div>
+    <div class="step-card"><div class="step-num-big">৩</div><h4>অনুবাদ ধীরে পড়ুন</h4><p>তাড়াহুড়া নয়। প্রতিটি আয়াত পড়ুন, একটু থামুন, বুকে অনুভব করুন। আয়াতটি আপনার সাথে কথা বলছে।</p></div>
+    <div class="step-card"><div class="step-num-big">৪</div><h4>প্রশ্ন করতে থাকুন</h4><p>আল্লাহ কেন এটি বললেন? এই আয়াত আমার জীবনে কোথায় প্রযোজ্য? আমার কোন ভুলের দিকে এটি আঙুল তুলছে?</p></div>
+    <div class="step-card"><div class="step-num-big">৫</div><h4>যা স্পর্শ করে — নোট করুন</h4><p>যে আয়াতটি পড়ে বুক কাঁপলো বা মাথায় আলো জ্বললো — সেটি তখনই লিখে রাখুন। এই মুহূর্ত হারিয়ে যায়।</p></div>
+    <div class="step-card"><div class="step-num-big">৬</div><h4>তাফসির দিয়ে গভীরে যান</h4><p>কঠিন বা জটিল মনে হলে তাফসির খুলুন। কিন্তু প্রথম পাঠে সব বুঝতে না পারলেও থামবেন না।</p></div>
+  </div>
+
+  <div class="divider">কী মনে করে পড়বেন</div>
+  <div class="card"><span class="card-icon">💌</span><h3>কুরআন পড়ুন চিঠির মতো</h3><p>কল্পনা করুন — এটি সরাসরি আল্লাহর পক্ষ থেকে আপনার কাছে পাঠানো একটি চিঠি। প্রতিটি শব্দে তিনি আপনাকেই ডাকছেন। "হে মুমিনগণ" মানে — হে আপনি।</p></div>
+  <div class="card"><span class="card-icon">🪞</span><h3>কুরআন পড়ুন আয়নার মতো</h3><p>প্রতিটি সূরা পড়ার পর নিজেকে জিজ্ঞেস করুন: "আল্লাহ এখানে আমার কোন দিকটি দেখাচ্ছেন?" কুরআন আপনার আত্মার আয়না।</p></div>
+  <div class="card"><span class="card-icon">🗺️</span><h3>কুরআন পড়ুন মানচিত্রের মতো</h3><p>জীবনের যেকোনো সমস্যায় — কুরআন খুলুন। সিদ্ধান্ত নিতে হবে? সম্পর্কে সমস্যা? মানসিক কষ্ট? — কুরআনে উত্তর আছে।</p></div>
+
+  <div class="highlight"><p><strong>সবচেয়ে গুরুত্বপূর্ণ মানসিকতা:</strong> কুরআন পড়তে বসুন এই বিশ্বাস নিয়ে যে — <strong>"এই সেশনে আমি অন্তত একটি আয়াত থেকে একটি শিক্ষা নিয়ে যাবো।"</strong> পরিমাণ নয়, গভীরতা — এটাই আসল।</p></div>
+</div>
+
+<!-- ═══ 05. দৈনিক রুটিন ═══ -->
+<div id="routine" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 05</div><div class="sec-title">দৈনিক রুটিন — <span>ধারা না হারানোর উপায়</span></div></div>
+
+  <div class="highlight"><p><strong>মূল নীতি:</strong> প্রতিদিন কম পড়ুন কিন্তু <strong>নিয়মিত পড়ুন।</strong> ১ পৃষ্ঠা প্রতিদিন, ০ পৃষ্ঠা মাঝেমধ্যে — এই দুটির মধ্যে প্রথমটি হাজারগুণ ভালো।</p></div>
+
+  <div class="divider">দৈনিক সময়সূচি</div>
+  <table class="routine-table">
+    <thead><tr><th>সময়</th><th>কাজ</th><th>সময়কাল</th><th>ধরন</th></tr></thead>
+    <tbody>
+      <tr><td>ফজরের পর</td><td>আল-ফাতিহা ও দিনের সূরার অনুবাদ পড়া শুরু করুন</td><td>১০-১৫ মিনিট</td><td><span class="badge badge-gold">মূল পড়া</span></td></tr>
+      <tr><td>দুপুরে</td><td>সকালে পড়া আয়াতটি নিয়ে ভাবুন — এটি আমার আজকের জীবনে কীভাবে প্রযোজ্য?</td><td>৫ মিনিট</td><td><span class="badge badge-blue">চিন্তা</span></td></tr>
+      <tr><td>বিকেলে/রাতে</td><td>নোট লিখুন। তাফসির দেখুন কোনো জটিল অংশ থাকলে</td><td>১০ মিনিট</td><td><span class="badge badge-green">নোট</span></td></tr>
+      <tr><td>ঘুমের আগে</td><td>আয়াতুল কুরসি + সূরা মুলক পড়ুন (অভ্যাস গড়ুন)</td><td>৫ মিনিট</td><td><span class="badge badge-gold">অভ্যাস</span></td></tr>
+      <tr><td>প্রতি শুক্রবার</td><td>সপ্তাহের নোট রিভিউ + সূরা আল-কাহ্ফ পড়ুন (সুন্নাহ)</td><td>৩০-৪৫ মিনিট</td><td><span class="badge badge-green">সাপ্তাহিক</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="divider">ধারা না হারানোর ৫টি কৌশল</div>
+  <div class="step-grid">
+    <div class="step-card"><div class="step-num-big">১</div><h4>ট্রিগার পয়েন্ট</h4><p>কুরআন পড়াকে একটি বিদ্যমান অভ্যাসের সাথে জুড়ে দিন। যেমন: "ফজরের নামাজের পর চেয়ারে বসলেই কুরআন খুলবো।"</p></div>
+    <div class="step-card"><div class="step-num-big">২</div><h4>ছোট লক্ষ্য</h4><p>দিন খারাপ লাগলে শুধু একটি আয়াত পড়ুন। শুধু একটি। এটাই যথেষ্ট সেদিনের জন্য। ধারা ভাঙবেন না।</p></div>
+    <div class="step-card"><div class="step-num-big">৩</div><h4>অডিও সহায়তা</h4><p>যানজটে বা হাঁটার সময় তিলাওয়াত শুনুন। চোখে না পড়লেও কানে পড়ুন।</p></div>
+    <div class="step-card"><div class="step-num-big">৪</div><h4>একজন সঙ্গী রাখুন</h4><p>বন্ধু বা পরিবারের কাউকে বলুন। "আমি কুরআন পড়ছি, তুমিও চলো।" — জবাবদিহিতা অনেক শক্তি দেয়।</p></div>
+    <div class="step-card"><div class="step-num-big">৫</div><h4>মিস করলে ফিরে আসুন</h4><p>একদিন মিস হলে হতাশ হবেন না। পরের দিন স্বাভাবিকভাবে শুরু করুন। আল্লাহ তাওবাকারীকে ভালোবাসেন।</p></div>
+  </div>
+</div>
+
+<!-- ═══ 06. নোট পদ্ধতি ═══ -->
+<div id="notes" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 06</div><div class="sec-title">কীভাবে <span>নোট করবেন?</span></div></div>
+
+  <div class="highlight"><p>নোট করা মানে শুধু লেখা নয় — এটি কুরআনের সাথে আপনার সংলাপ। সঠিক নোট পদ্ধতি আপনার পড়াকে ১০ গুণ গভীর করে।</p></div>
+
+  <div class="divider">প্রতিটি সূরার জন্য নোট কাঠামো</div>
+  <div class="note-template">
+    <div style="font-size:.68rem;letter-spacing:3px;color:var(--gold);margin-bottom:18px;text-transform:uppercase">📋 সূরা নোট টেমপ্লেট</div>
+    <div class="note-field"><div class="note-label">সূরার নাম ও নম্বর</div><input class="note-line" type="text" placeholder="যেমন: সূরা ইউসুফ — ১২"></div>
+    <div class="note-field"><div class="note-label">পড়ার তারিখ</div><input class="note-line" type="text" placeholder="তারিখ লিখুন"></div>
+    <div class="note-field"><div class="note-label">মক্কি / মাদানী এবং মূল বিষয়</div><input class="note-line" type="text" placeholder="যেমন: মক্কি। বিষয়: ধৈর্য, আল্লাহর পরিকল্পনা, ইউসুফ (আ.)-এর জীবন"></div>
+    <div class="note-field"><div class="note-label">আমাকে সবচেয়ে বেশি স্পর্শ করা আয়াত</div><input class="note-line" type="text" placeholder="আয়াত নম্বর ও সংক্ষিপ্ত বাংলা অর্থ"></div>
+    <div class="note-field"><div class="note-label">এই সূরা থেকে আমার জন্য শিক্ষা</div><input class="note-line" type="text" placeholder="আমার জীবনে এটি কীভাবে প্রযোজ্য?"></div>
+    <div class="note-field"><div class="note-label">যে প্রশ্ন মনে এসেছে</div><input class="note-line" type="text" placeholder="পরে তাফসির বা আলিমদের কাছে জানতে হবে"></div>
+    <div class="note-field"><div class="note-label">আজ থেকে আমি যে একটি কাজ পরিবর্তন করবো</div><input class="note-line" type="text" placeholder="ছোট হলেও চলবে, কিন্তু নির্দিষ্ট হতে হবে"></div>
+  </div>
+
+  <div class="divider">বিশেষ নোট বিভাগ</div>
+  <div class="step-grid">
+    <div class="step-card"><h4>💎 "আমার আয়াত" সংগ্রহ</h4><p>একটি আলাদা পৃষ্ঠায় শুধু সেই আয়াতগুলো লিখুন যেগুলো পড়ে বুকে ধাক্কা লেগেছে। এটাই হবে আপনার ব্যক্তিগত কুরআনিক সংকলন।</p></div>
+    <div class="step-card"><h4>🔗 সংযোগ নোট</h4><p>যখন দেখবেন একই বিষয় দুটি সূরায় আছে — লিখে রাখুন। যেমন: "সূরা ইউসুফের ধৈর্য + সূরা যুমার ৫৩ আয়াত।"</p></div>
+    <div class="step-card"><h4>🌙 সাপ্তাহিক রিভিউ</h4><p>প্রতি শুক্রবার ৩০ মিনিট বসুন। সেই সপ্তাহের নোট পড়ুন এবং লিখুন: "এই সপ্তাহে কুরআন আমাকে কী শিখিয়েছে?"</p></div>
+    <div class="step-card"><h4>🎯 "আমল নোট"</h4><p>কুরআন পড়ে যে আমল করার নিয়ত করেছেন তা আলাদা করে লিখুন। পরে চেক করুন — করলেন কিনা।</p></div>
+  </div>
+</div>
+
+<!-- ═══ 07. ১১৪ সূরার ফ্লোচার্ট ═══ -->
+<div id="flow" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 07</div><div class="sec-title">১১৪ সূরার <span>সম্পূর্ণ ফ্লোচার্ট</span></div></div>
+
+  <div class="highlight"><p>কুরআন নাযিলের ঐতিহাসিক ক্রমে সাজানো। প্রতিটি সূরার নাম, আরবি, পরিচয় ও বিষয় সহ। পড়া হলে <strong>ক্লিক করুন</strong> — সবুজ হয়ে যাবে।</p></div>
+
+  <!-- Search -->
+  <div class="flow-search-wrap">
+    <div class="flow-search-inner">
+      <input type="text" id="flowSearch" placeholder="🔍  সূরার নাম বা নম্বর লিখুন... যেমন: ইউসুফ বা ১২" autocomplete="off" spellcheck="false">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" title="মুছুন">✕</button>
+    </div>
+    <div class="search-results-info" id="searchInfo"></div>
+  </div>
+
+  <!-- Legend -->
+  <div class="flow-legend">
+    <div class="leg-item"><div class="leg-dot ld-m"></div>মক্কি</div>
+    <div class="leg-item"><div class="leg-dot ld-d"></div>মাদানী</div>
+    <div class="leg-item">✅ = পড়া সম্পন্ন</div>
+    <div class="leg-item" style="margin-left:auto;font-size:.68rem;color:var(--cream3)">▼ = ফেজ ক্লিক করে খুলুন/বন্ধ করুন</div>
+  </div>
+
+  <!-- Progress -->
+  <div class="flow-progress">
+    <div class="fp-label">📖 পাঠ অগ্রগতি</div>
+    <div class="fp-bar-out"><div class="fp-bar-in" id="fpBarIn" style="width:0%"></div></div>
+    <div class="fp-pct" id="fpPct">০/১১৪</div>
+    <button class="fp-reset" onclick="resetProgress()">↺ রিসেট</button>
+  </div>
+
+  <!-- Flowchart built by JS -->
+  <div id="flowChart"></div>
+</div>
+
+<!-- ═══ 08. জীবনে প্রয়োগ ═══ -->
+<div id="life" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 08</div><div class="sec-title">জীবনে <span>কুরআনের প্রয়োগ</span></div></div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-icon">+</span>কুরআন পড়লেই কি ইসলামের সব বুঝবো?</div>
+    <div class="faq-a">না — কুরআন ইসলামের প্রধান উৎস, কিন্তু একমাত্র উৎস নয়। কুরআন বোঝার জন্য হাদিসের প্রয়োজন অপরিহার্য। অনেক কুরআনের আদেশের বিস্তারিত পদ্ধতি হাদিসে আছে। যেমন: কুরআন বলে "নামাজ পড়ো" — কিন্তু কীভাবে পড়বো তা হাদিস থেকে শিখতে হবে। তাই কুরআন + হাদিস মিলিয়েই ইসলামকে পূর্ণাঙ্গভাবে বোঝা সম্ভব।</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-icon">+</span>সমস্যায় পড়লে কুরআন কীভাবে সাহায্য করবে?</div>
+    <div class="faq-a">কুরআনে একটি বিষয়ভিত্তিক সূচক তৈরি করুন। যেমন: "উদ্বেগ হলে → সূরা ইনশিরাহ, সূরা দুহা", "ধৈর্যের প্রয়োজন → সূরা ইউসুফ, সূরা যুমার ৫৩", "সম্পর্কের সমস্যা → সূরা হুজুরাত"। এভাবে কুরআন হয়ে যাবে আপনার জীবনের সবচেয়ে বিশ্বস্ত গাইড।</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-icon">+</span>কুরআনের শিক্ষা কি আধুনিক জীবনে প্রযোজ্য?</div>
+    <div class="faq-a">হ্যাঁ, সম্পূর্ণ প্রযোজ্য। কুরআনের নৈতিক নীতিগুলো — সততা, ন্যায়বিচার, সহানুভূতি, পরিবেশ রক্ষা, অর্থনৈতিক ন্যায্যতা — এগুলো কালোত্তীর্ণ।</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-icon">+</span>কুরআন পাঠে কোন আয়াত দিয়ে শুরু করলে সবচেয়ে ভালো হবে?</div>
+    <div class="faq-a">সবার আগে সূরা আল-ফাতিহা মুখস্থ করুন ও অর্থ বুঝুন — এটি পুরো কুরআনের সারাংশ। তারপর সূরা আল-বাকারার প্রথম ৫ আয়াত। এই দুটো বুঝলেই কুরআনের কাছে যাওয়ার দরজা খুলে যায়।</div>
+  </div>
+
+  <div class="divider">কুরআনকে জীবনে প্রয়োগের ৩টি স্তর</div>
+  <div class="step-grid">
+    <div class="step-card"><div class="step-num-big">১</div><h4>🌱 জানা</h4><p>কুরআন পড়া ও বোঝার মাধ্যমে জ্ঞান অর্জন। "আল্লাহ কী চান?" — এই প্রশ্নের উত্তর জানা।</p></div>
+    <div class="step-card"><div class="step-num-big">২</div><h4>🌿 আমল করা</h4><p>জানা জিনিস জীবনে প্রয়োগ করা। একটি একটি করে আয়াতের শিক্ষা আচরণে নিয়ে আসুন।</p></div>
+    <div class="step-card"><div class="step-num-big">৩</div><h4>🌳 প্রচার করা</h4><p>যা শিখলেন তা পরিবার, বন্ধু ও সমাজে ছড়িয়ে দিন। "বাল্লিগু আন্নি ওয়ালাও আয়াহ।"</p></div>
+  </div>
+</div>
+
+<!-- ═══ 09. বাড়তি পড়া ═══ -->
+<div id="extra" class="section">
+  <div class="sec-hd"><div class="sec-ey">Section 09</div><div class="sec-title">কুরআনের পাশাপাশি <span>কী পড়বেন?</span></div></div>
+
+  <div class="resource-grid">
+    <div class="resource-card"><div class="resource-type">অবশ্যই পড়বেন</div><h4>📚 সীরাতুন নবী (সা.)</h4><p>রাসূল (সা.)-এর জীবনী না জানলে কুরআনের অনেক আয়াত বোঝা অসম্পূর্ণ থাকে। সুপারিশ: "আর-রাহীকুল মাখতুম"।</p></div>
+    <div class="resource-card"><div class="resource-type">অবশ্যই পড়বেন</div><h4>📚 হাদিস সংকলন</h4><p>রিয়াদুস সালিহিন বা বুলুগুল মারাম। সুন্নাহ ছাড়া কুরআনের বাস্তব প্রয়োগ অসম্পূর্ণ।</p></div>
+    <div class="resource-card"><div class="resource-type">সহায়ক</div><h4>📚 তাফসির ইবনে কাসীর</h4><p>সংক্ষিপ্ত বাংলা সংস্করণে পড়ুন। কোনো আয়াতে আটকে গেলে এখানে দেখুন।</p></div>
+    <div class="resource-card"><div class="resource-type">সহায়ক</div><h4>📚 ইসলামের ইতিহাস</h4><p>প্রথম মুসলিমদের জীবন ও সংগ্রামের কাহিনী জানলে মক্কি সূরাগুলো ১০ গুণ জীবন্ত হয়।</p></div>
+    <div class="resource-card"><div class="resource-type">উন্নত পর্যায়</div><h4>📚 উসুলুল ফিকহ</h4><p>ইসলামী আইনের মূলনীতি বুঝতে চাইলে পড়ুন। কুরআনের আদেশ-নিষেধ বোঝার বৈজ্ঞানিক পদ্ধতি।</p></div>
+    <div class="resource-card"><div class="resource-type">আধুনিক</div><h4>📚 Nouman Ali Khan</h4><p>ইউটিউবে বাংলা সাবটাইটেলসহ তাঁর তাফসির ক্লাস দেখুন। কুরআনকে আধুনিক জীবনের সাথে অসাধারণভাবে সংযুক্ত করেন।</p></div>
+  </div>
+
+  <div class="highlight"><p><strong>সতর্কতা:</strong> একসাথে সব পড়তে যাবেন না। প্রথম ৩ মাস <strong>শুধু কুরআন অনুবাদ</strong> পড়ুন। তারপর সীরাহ যোগ করুন। তারপর হাদিস। ধীরে ধীরে।</p></div>
+</div>
+
+</div><!-- end main-wrap -->
+
+<!-- ══════════ FOOTER ══════════ -->
+<div class="footer">
+  <div class="footer-ar">وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ</div>
+  "আমার তাওফিক কেবল আল্লাহর পক্ষ থেকে" — সূরা হুদ: ৮৮<br>
+  এই কোর্স টি শেখার সুবিধার জন্য তৈরি · কোনো ভুল থাকলে যোগ্য আলেমদের সাথে যোগাযোগ করুন  <br> 
+  <div class="footer-ar">Riyad Bin Alom </div>
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── TAB NAVIGATION ── */
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ── FAQ ── */
+function toggleFaq(el) {
+  const a = el.nextElementSibling;
+  const open = a.classList.contains('open');
+  el.classList.toggle('open', !open);
+  a.classList.toggle('open', !open);
+}
+
+/* ── SCROLL TOP ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 300);
+});
+
+/* ════════════════════════════════════
+   114 SURAH DATA
+════════════════════════════════════ */
+const PHASES = [
+  { id:'ph0', name:'পর্ব ০ — ভিত্তিপর্ব', desc:'যাত্রা শুরুর আগে এই সূরাগুলো দিয়ে ভিত্তি গড়ুন', period:'যেকোনো সময়', col:'#c9a84c',
+    surahs:[
+      {n:1,  bn:'আল-ফাতিহা',      ar:'الفاتحة',  t:'mk', desc:'কুরআনের সারসংক্ষেপ ও মূল দোয়া। পুরো কুরআনের "ভূমিকা"। প্রতিদিন পড়ুন।'},
+      {n:112,bn:'আল-ইখলাস',       ar:'الإخلاص', t:'mk', desc:'তাওহীদের সারাংশ। "আল্লাহ কে?" — এই প্রশ্নের সম্পূর্ণ উত্তর মাত্র ৪ আয়াতে।'},
+      {n:113,bn:'আল-ফালাক',       ar:'الفلق',   t:'mk', desc:'বাহ্যিক অনিষ্ট থেকে সুরক্ষা — অন্ধকার, যাদু ও হিংসাকারী থেকে আল্লাহর আশ্রয়।'},
+      {n:114,bn:'আন-নাস',         ar:'الناس',   t:'mk', desc:'ওয়াসওয়াসা থেকে সুরক্ষা — মানুষের বুকে কুমন্ত্রণাদাতা থেকে রক্ষা।'},
+    ]},
+  { id:'ph1', name:'পর্ব ১ — প্রথম মক্কি', desc:'নবুওয়াতের শুরু — ঈমান, তাওহীদ ও পরকালীন চেতনার আহ্বান', period:'নবুওয়াতের ১ম–৫ম বছর', col:'#e0a040',
+    surahs:[
+      {n:96, bn:'আল-আলাক',        ar:'العلق',    t:'mk', desc:'প্রথম ওহী — "পড়ো তোমার রবের নামে।" জ্ঞানের গুরুত্ব ও মানুষের অহংকারের পরিণতি।'},
+      {n:74, bn:'আল-মুদ্দাস্সির', ar:'المدثر',   t:'mk', desc:'প্রথম দাওয়াত — উঠুন, সতর্ক করুন। জাহান্নামের দরজার উল্লেখ।'},
+      {n:73, bn:'আল-মুযযাম্মিল',  ar:'المزمل',   t:'mk', desc:'রাতের ইবাদত — তাহাজ্জুদের নির্দেশ, আল্লাহর সাথে একান্ত সম্পর্কের ভিত্তি।'},
+      {n:80, bn:'আবাসা',          ar:'عبس',      t:'mk', desc:'অন্ধ সাহাবীর ঘটনা — সামাজিক বৈষম্যের বিরুদ্ধে সতর্কতা।'},
+      {n:87, bn:'আল-আলা',         ar:'الأعلى',   t:'mk', desc:'"সুবহানা রব্বিয়াল আলা" — দুনিয়াকে না, আখিরাতকে প্রাধান্য দিন।'},
+      {n:92, bn:'আল-লাইল',        ar:'الليل',    t:'mk', desc:'রাতের শপথ — দান ও কার্পণ্যের দুটি পথ, দুটি পরিণাম।'},
+      {n:68, bn:'আল-কালাম',       ar:'القلم',    t:'mk', desc:'কলমের শপথ — নবীর (সা.) অনুপম চরিত্রের ঘোষণা।'},
+      {n:93, bn:'আদ-দুহা',        ar:'الضحى',    t:'mk', desc:'ওহী বিরতিতে সান্ত্বনা — "তোমার প্রভু তোমাকে ছাড়েননি।"'},
+      {n:94, bn:'আল-ইনশিরাহ',     ar:'الشرح',    t:'mk', desc:'"কষ্টের সাথেই সহজ আছে।" দুবার বলা এই প্রতিশ্রুতি আশার আলো জ্বালায়।'},
+      {n:89, bn:'আল-ফাজর',        ar:'الفجر',    t:'mk', desc:'ভোরের শপথ — আদ, সামুদ, ফেরাউনের ধ্বংস। প্রশান্ত আত্মা জান্নাতে।'},
+      {n:103,bn:'আল-আসর',         ar:'العصر',    t:'mk', desc:'সময়ের শপথ — মানুষ ক্ষতিতে আছে, কেবল ৪ শ্রেণি ব্যতীত।'},
+      {n:100,bn:'আল-আদিয়াত',      ar:'العاديات', t:'mk', desc:'দৌড়ানো ঘোড়ার শপথ — মানুষের অকৃতজ্ঞতা।'},
+      {n:108,bn:'আল-কাওসার',      ar:'الكوثر',   t:'mk', desc:'কাওসারের সুসংবাদ — কুরআনের সংক্ষিপ্ততম সূরা।'},
+      {n:102,bn:'আত-তাকাসুর',     ar:'التكاثر',  t:'mk', desc:'সম্পদ ও সন্তান নিয়ে গর্ব — কবরে না যাওয়া পর্যন্ত এই খেলা চলে।'},
+      {n:107,bn:'আল-মাউন',        ar:'الماعون',  t:'mk', desc:'নামাজে অমনোযোগী ও সাহায্য অস্বীকারকারীর পরিণতি।'},
+      {n:104,bn:'আল-হুমাযা',      ar:'الهمزة',   t:'mk', desc:'পরনিন্দাকারী ও সম্পদ সঞ্চয়কারীর শাস্তি।'},
+      {n:109,bn:'আল-কাফিরুন',     ar:'الكافرون', t:'mk', desc:'ধর্মে আপোস নেই — "তোমার ধর্ম তোমার, আমার ধর্ম আমার।"'},
+      {n:111,bn:'আল-মাসাদ',       ar:'المسد',    t:'mk', desc:'আবু লাহাব ও তার স্ত্রীর পরিণতি।'},
+      {n:105,bn:'আল-ফিল',         ar:'الفيل',    t:'mk', desc:'হাতির বাহিনীর ধ্বংস — কাবা রক্ষায় আল্লাহর অলৌকিক হস্তক্ষেপ।'},
+      {n:106,bn:'কুরাইশ',         ar:'قريش',     t:'mk', desc:'কুরাইশের নেয়ামত — দুটি বাণিজ্য সফরের সুবিধা।'},
+      {n:90, bn:'আল-বালাদ',       ar:'البلد',    t:'mk', desc:'মক্কার শপথ — মানুষ কষ্টের মধ্যে সৃষ্টি হয়েছে।'},
+      {n:91, bn:'আশ-শামস',        ar:'الشمس',    t:'mk', desc:'সূর্যের শপথ — আত্মাকে পবিত্র রাখার গুরুত্ব। সামুদ জাতির পরিণতি।'},
+      {n:95, bn:'আত-তিন',         ar:'التين',    t:'mk', desc:'ডুমুরের শপথ — মানুষ সর্বোত্তম আকৃতিতে সৃষ্ট।'},
+      {n:97, bn:'আল-কাদর',        ar:'القدر',    t:'mk', desc:'লাইলাতুল কাদরের মহিমা — হাজার মাসের চেয়ে উত্তম এক রাত।'},
+      {n:86, bn:'আত-তারিক',       ar:'الطارق',   t:'mk', desc:'রাতের তারার শপথ — প্রতিটি আত্মার উপর রক্ষক আছে।'},
+      {n:85, bn:'আল-বুরুজ',       ar:'البروج',   t:'mk', desc:'আসহাবুল উখদুদ — আগুনের গর্তে নিক্ষিপ্ত মুমিনদের কাহিনী।'},
+      {n:84, bn:'আল-ইনশিকাক',     ar:'الانشقاق', t:'mk', desc:'আসমান বিদীর্ণ হবে — ডান-বাম হাতে আমলনামা পাওয়ার পার্থক্য।'},
+      {n:82, bn:'আল-ইনফিতার',     ar:'الانفطار', t:'mk', desc:'আসমান ফাটবে — হিসাব-নিকাশের দিন।'},
+      {n:83, bn:'আল-মুতাফফিফিন',  ar:'المطففين', t:'mk', desc:'ওজনে কম দেওয়ার শাস্তি — সিজ্জিন ও ইল্লিয়্যিন।'},
+      {n:81, bn:'আত-তাকভির',      ar:'التكوير',  t:'mk', desc:'সূর্য গুটিয়ে যাবে — ১৫টি কিয়ামতের ভয়াবহ চিত্র।'},
+    ]},
+  { id:'ph2', name:'পর্ব ২ — মধ্য মক্কি', desc:'আখিরাত, মহাবিশ্ব ও আল্লাহর মহিমার গভীর বর্ণনা', period:'নবুওয়াতের ৫ম–৮ম বছর', col:'#d09030',
+    surahs:[
+      {n:36, bn:'ইয়া-সিন',        ar:'يس',       t:'mk', desc:'কুরআনের হৃদয় — পুনরুত্থানের প্রমাণ, রিজিক ও আল্লাহর নিদর্শন।'},
+      {n:55, bn:'আর-রহমান',        ar:'الرحمن',   t:'mk', desc:'৩১ বার "তোমরা কোন নেয়ামত অস্বীকার করবে?" জান্নাতের অপূর্ব বর্ণনা।'},
+      {n:56, bn:'আল-ওয়াকিয়া',    ar:'الواقعة',  t:'mk', desc:'তিন শ্রেণির মানুষ: অগ্রগামী, ডানদিকের, বামদিকের।'},
+      {n:67, bn:'আল-মুলক',        ar:'الملك',    t:'mk', desc:'আল্লাহর রাজত্ব — কবরের আযাব থেকে রক্ষার সূরা।'},
+      {n:78, bn:'আন-নাবা',         ar:'النبأ',    t:'mk', desc:'মহাসংবাদ — কিয়ামতের বিস্তারিত বর্ণনা।'},
+      {n:79, bn:'আন-নাযিআত',      ar:'النازعات', t:'mk', desc:'ফেরেশতাদের শপথ — মুসা-ফেরাউনের কাহিনী।'},
+      {n:77, bn:'আল-মুরসালাত',    ar:'المرسلات', t:'mk', desc:'"অস্বীকারকারীদের জন্য ধ্বংস" ১০ বার পুনরাবৃত্তি।'},
+      {n:75, bn:'আল-কিয়ামাহ',     ar:'القيامة',  t:'mk', desc:'কিয়ামতের শপথ — মৃত্যুর মুহূর্তের বর্ণনা।'},
+      {n:70, bn:'আল-মাআরিজ',       ar:'المعارج',  t:'mk', desc:'উর্ধ্বারোহণের পথ — মানুষের অধৈর্যতা বনাম নামাজিদের সাফল্য।'},
+      {n:71, bn:'নূহ',             ar:'نوح',      t:'mk', desc:'নূহ (আ.)-এর ৯৫০ বছরের দাওয়াত।'},
+      {n:72, bn:'আল-জিন',          ar:'الجن',     t:'mk', desc:'জিনদের ইসলাম গ্রহণ — কুরআন শুনে তারা কীভাবে প্রভাবিত হলো।'},
+      {n:69, bn:'আল-হাক্কাহ',      ar:'الحاقة',   t:'mk', desc:'সত্য ঘটনা — কিয়ামতের অনিবার্যতা।'},
+      {n:53, bn:'আন-নাজম',         ar:'النجم',    t:'mk', desc:'তারার শপথ — মিরাজের বর্ণনা।'},
+      {n:54, bn:'আল-কামার',        ar:'القمر',    t:'mk', desc:'চাঁদ দ্বিখণ্ডিত হওয়ার মুজিজা।'},
+      {n:52, bn:'আত-তুর',          ar:'الطور',    t:'mk', desc:'তুর পাহাড়ের শপথ — জান্নাতে পরিবারের মিলন।'},
+      {n:51, bn:'আয-যারিয়াত',      ar:'الذاريات', t:'mk', desc:'বাতাসের শপথ — প্রতিটি বস্তু জোড়ায় সৃষ্ট।'},
+      {n:50, bn:'কাফ',             ar:'ق',        t:'mk', desc:'কাফ অক্ষরের শপথ — পুনরুত্থানের প্রমাণ।'},
+      {n:88, bn:'আল-গাশিয়া',      ar:'الغاشية',  t:'mk', desc:'মহাবিপদের দিন — কষ্টের মুখ বনাম আনন্দিত মুখ।'},
+      {n:101,bn:'আল-কারিআহ',      ar:'القارعة',  t:'mk', desc:'মহাআঘাত — আমলের পাল্লায় ভারী ও হালকার পরিণাম।'},
+      {n:76, bn:'আল-ইনসান',        ar:'الإنسان',  t:'md', desc:'মানুষের সৃষ্টি — কৃতজ্ঞতা ও অকৃতজ্ঞতার পথ।'},
+      {n:99, bn:'আয-যালযালাহ',     ar:'الزلزلة',  t:'md', desc:'অণু পরিমাণ ভালো ও মন্দ সবই হিসাবে আসবে।'},
+    ]},
+  { id:'ph3', name:'পর্ব ৩ — নবীদের কাহিনী', desc:'ইতিহাস থেকে শিক্ষা — নবীদের সংগ্রাম ও বিজয়', period:'নবুওয়াতের ৫ম–১২তম বছর', col:'#c07838',
+    surahs:[
+      {n:18, bn:'আল-কাহ্ফ',        ar:'الكهف',    t:'mk', desc:'৪টি কাহিনী — গুহার যুবক, দুই বাগান, মুসা-খিদির, যুলকারনাইন। দাজ্জাল থেকে রক্ষা।'},
+      {n:12, bn:'ইউসুফ',           ar:'يوسف',     t:'mk', desc:'সবচেয়ে সুন্দর কাহিনী — ধৈর্য, বিশ্বাস ও আল্লাহর পরিকল্পনার বিজয়।'},
+      {n:19, bn:'মারইয়াম',         ar:'مريم',     t:'mk', desc:'মারইয়াম (আ.) ও ঈসা (আ.)-এর জন্ম কাহিনী।'},
+      {n:20, bn:'ত্বহা',           ar:'طه',       t:'mk', desc:'মুসা (আ.)-এর দীর্ঘ কাহিনী — লাঠির মুজিজা, সিনাই পাহাড়।'},
+      {n:21, bn:'আল-আম্বিয়া',     ar:'الأنبياء',  t:'mk', desc:'১৮+ নবীর সংক্ষিপ্ত কাহিনী — তাওহীদের সার্বজনীনতা।'},
+      {n:26, bn:'আশ-শুআরা',        ar:'الشعراء',  t:'mk', desc:'মুসা-ইবরাহিম-নূহ-হুদ-সালিহ-লুত-শুয়াইব (আ.)।'},
+      {n:27, bn:'আন-নামল',         ar:'النمل',    t:'mk', desc:'সুলাইমান (আ.) ও রানি বিলকিস, পিঁপড়ার অলৌকিক কাহিনী।'},
+      {n:28, bn:'আল-কাসাস',        ar:'القصص',    t:'mk', desc:'মুসা (আ.)-এর জন্ম থেকে নবুওয়াত পর্যন্ত — কারুনের ধ্বংস।'},
+      {n:11, bn:'হুদ',             ar:'هود',      t:'mk', desc:'পাঁচটি ধ্বংসপ্রাপ্ত জাতির কাহিনী।'},
+      {n:10, bn:'ইউনুস',           ar:'يونس',     t:'mk', desc:'ইউনুস (আ.)-এর মাছের পেটে থাকা ও তাওবার কাহিনী।'},
+      {n:14, bn:'ইবরাহিম',         ar:'إبراهيم',  t:'mk', desc:'ইবরাহিম (আ.)-এর দোয়া ও কৃতজ্ঞতা।'},
+      {n:15, bn:'আল-হিজর',         ar:'الحجر',    t:'mk', desc:'সামুদ জাতির ধ্বংস, লুত (আ.)-এর কাহিনী।'},
+      {n:23, bn:'আল-মুমিনুন',      ar:'المؤمنون', t:'mk', desc:'মুমিনের ১০টি গুণ এবং নবীদের কাহিনী।'},
+      {n:25, bn:'আল-ফুরকান',       ar:'الفرقان',  t:'mk', desc:'হক ও বাতিলের মানদণ্ড।'},
+      {n:29, bn:'আল-আনকাবুত',      ar:'العنكبوت', t:'mk', desc:'মাকড়সার জালের দৃষ্টান্ত — পরীক্ষায় ঈমানের সত্যতা।'},
+      {n:34, bn:'সাবা',            ar:'سبأ',      t:'mk', desc:'সাবা জাতির শাস্তি, দাউদ ও সুলাইমান (আ.)-এর নেয়ামত।'},
+      {n:37, bn:'আস-সাফফাত',       ar:'الصافات',  t:'mk', desc:'ইবরাহিম (আ.)-এর পুত্র কুরবানি — বিশ্বাসের সর্বোচ্চ পরীক্ষা।'},
+      {n:38, bn:'সাদ',             ar:'ص',        t:'mk', desc:'দাউদ, সুলাইমান ও আইয়ুব (আ.)-এর পরীক্ষা।'},
+    ]},
+  { id:'ph4', name:'পর্ব ৪ — শেষ মক্কি', desc:'দার্শনিক গভীরতা, নৈতিকতা ও জীবনদর্শন', period:'নবুওয়াতের ৮ম–১৩তম বছর', col:'#b06828',
+    surahs:[
+      {n:17, bn:'আল-ইসরা',         ar:'الإسراء',  t:'mk', desc:'মিরাজ এবং ইসলামের ১৭টি নৈতিক মূলনীতি — সভ্যতার সনদ।'},
+      {n:6,  bn:'আল-আনআম',         ar:'الأنعام',  t:'mk', desc:'তাওহীদের যুক্তি — শিরকের খণ্ডন, ইবরাহিম (আ.)-এর সত্য অন্বেষণ।'},
+      {n:7,  bn:'আল-আরাফ',         ar:'الأعراف',  t:'mk', desc:'আদম থেকে মুসা পর্যন্ত — মানবজাতির পতনের ইতিহাস।'},
+      {n:16, bn:'আন-নাহল',         ar:'النحل',    t:'mk', desc:'মৌমাছির সূরা — আল্লাহর নেয়ামত ও নিদর্শন।'},
+      {n:30, bn:'আর-রুম',          ar:'الروم',    t:'mk', desc:'রোমানদের বিজয়ের ভবিষ্যদ্বাণী — সভ্যতার উত্থান-পতন।'},
+      {n:31, bn:'লুকমান',          ar:'لقمان',    t:'mk', desc:'জ্ঞানী পিতার উপদেশ — তাওহীদ, মাতা-পিতার অধিকার।'},
+      {n:32, bn:'আস-সাজদা',        ar:'السجدة',   t:'mk', desc:'সৃষ্টির রহস্য — সিজদার গুরুত্ব।'},
+      {n:35, bn:'ফাতির',           ar:'فاطر',     t:'mk', desc:'আল্লাহই সৃষ্টিকর্তা — কুরআনের তিন শ্রেণির উত্তরাধিকারী।'},
+      {n:39, bn:'আয-যুমার',        ar:'الزمر',    t:'mk', desc:'বিশুদ্ধ ইখলাস — "হে আমার বান্দারা, হতাশ হয়ো না।"'},
+      {n:40, bn:'গাফির',           ar:'غافر',     t:'mk', desc:'ফেরাউনের দরবারে একজন মুমিনের সাহসী বক্তৃতা।'},
+      {n:41, bn:'ফুসিলাত',         ar:'فصلت',     t:'mk', desc:'বিস্তারিত কুরআন — কান ও চোখ বিচারের দিন সাক্ষ্য দেবে।'},
+      {n:42, bn:'আশ-শুরা',         ar:'الشورى',   t:'mk', desc:'পরামর্শের বিধান — ওহীর প্রকারভেদ।'},
+      {n:43, bn:'আয-যুখরুফ',       ar:'الزخرف',   t:'mk', desc:'সোনার অলংকার — ঈসা (আ.) সম্পর্কে সত্য কথা।'},
+      {n:44, bn:'আদ-দুখান',        ar:'الدخان',   t:'mk', desc:'ধোঁয়ার বিপদ — ফেরাউনের পরিণতি।'},
+      {n:45, bn:'আল-জাসিয়া',      ar:'الجاثية',  t:'mk', desc:'মানুষ প্রবৃত্তিকে উপাস্য বানিয়েছে।'},
+      {n:46, bn:'আল-আহকাফ',        ar:'الأحقاف',  t:'mk', desc:'আদ জাতির ধ্বংস — মাতা-পিতার প্রতি দায়িত্ব।'},
+      {n:13, bn:'আর-রাদ',          ar:'الرعد',    t:'mk', desc:'বজ্রের শপথ — অন্তর পরিবর্তনের শর্ত।'},
+    ]},
+  { id:'ph5', name:'পর্ব ৫ — মাদানী: মূল আইন', desc:'হিজরতের পর — ইসলামের সংবিধান ও মূল বিধান', period:'হিজরতের ১ম–৪র্থ বছর', col:'#5ab88a',
+    surahs:[
+      {n:2,  bn:'আল-বাকারা',       ar:'البقرة',   t:'md', desc:'ইসলামের সংবিধান — নামাজ, রোজা, হজ, যাকাত, ঋণ, বিবাহ, তালাক, লেনদেন।'},
+      {n:3,  bn:'আলে ইমরান',       ar:'آل عمران', t:'md', desc:'ওহুদ যুদ্ধ — আহলে কিতাব সম্পর্কে, মারইয়াম-ইমরান পরিবার।'},
+      {n:4,  bn:'আন-নিসা',         ar:'النساء',   t:'md', desc:'নারীর অধিকার — উত্তরাধিকার আইন, বিবাহ বিধি।'},
+      {n:5,  bn:'আল-মায়িদা',      ar:'المائدة',  t:'md', desc:'হালাল-হারাম, চুক্তির সম্মান, শাস্তিবিধি।'},
+      {n:22, bn:'আল-হজ',           ar:'الحج',     t:'md', desc:'হজের বিধান — কুরবানির তাৎপর্য।'},
+      {n:8,  bn:'আল-আনফাল',        ar:'الأنفال',  t:'md', desc:'বদর যুদ্ধ — গনিমত বণ্টন, যুদ্ধের নীতিমালা।'},
+      {n:9,  bn:'আত-তাওবা',        ar:'التوبة',   t:'md', desc:'মুনাফিকদের মুখোশ উন্মোচন — জিহাদের বিধান।'},
+    ]},
+  { id:'ph6', name:'পর্ব ৬ — মাদানী: সমাজ ও পরিবার', desc:'পারিবারিক বিধান, সামাজিক নৈতিকতা ও রাষ্ট্র পরিচালনা', period:'হিজরতের ৫ম–৯ম বছর', col:'#4a9870',
+    surahs:[
+      {n:24, bn:'আন-নূর',          ar:'النور',    t:'md', desc:'পর্দা বিধি — অপবাদের শাস্তি, নূরের অসাধারণ আয়াত।'},
+      {n:33, bn:'আল-আহযাব',        ar:'الأحزاب',  t:'md', desc:'আহযাব যুদ্ধ — নবীর পরিবারের বিধান, মুমিন নারীর পর্দা।'},
+      {n:47, bn:'মুহাম্মাদ',       ar:'محمد',     t:'md', desc:'যুদ্ধ ও শান্তির বিধি — মুনাফিকদের রোগা অন্তর।'},
+      {n:48, bn:'আল-ফাতহ',         ar:'الفتح',    t:'md', desc:'হুদাইবিয়ার চুক্তি — সুস্পষ্ট বিজয়ের সুসংবাদ।'},
+      {n:49, bn:'আল-হুজুরাত',      ar:'الحجرات',  t:'md', desc:'ইসলামিক এথিক্স — পরনিন্দা, অনুমান, বর্ণবাদ নিষিদ্ধ।'},
+      {n:57, bn:'আল-হাদিদ',        ar:'الحديد',   t:'md', desc:'আল্লাহর পথে ব্যয় — লোহার উপকারিতা।'},
+      {n:58, bn:'আল-মুজাদিলা',     ar:'المجادلة', t:'md', desc:'একজন নারীর আবেদন — আল্লাহ প্রতিটি গোপন কথোপকথন শোনেন।'},
+      {n:59, bn:'আল-হাশর',         ar:'الحشر',    t:'md', desc:'বনু নাদিরের বিতাড়ন — শেষে আল্লাহর সুন্দর নামসমূহ।'},
+      {n:60, bn:'আল-মুমতাহিনা',    ar:'الممتحنة', t:'md', desc:'মুমিন নারীর পরীক্ষা — অমুসলিমদের সাথে সম্পর্কের বিধান।'},
+      {n:61, bn:'আস-সাফ',          ar:'الصف',     t:'md', desc:'কথা ও কাজের মিল — আল্লাহর পথে সারিবদ্ধ হও।'},
+      {n:62, bn:'আল-জুমুআ',        ar:'الجمعة',   t:'md', desc:'জুমার নামাজের বিধান — ব্যবসার চেয়ে নামাজ অগ্রাধিকার।'},
+      {n:63, bn:'আল-মুনাফিকুন',    ar:'المنافقون',t:'md', desc:'মুনাফিকদের পরিচয় — সুন্দর কথা কিন্তু কুৎসিত অন্তর।'},
+      {n:64, bn:'আত-তাগাবুন',      ar:'التغابن',  t:'md', desc:'পারস্পরিক ক্ষতির দিন — স্ত্রী-সন্তান পরীক্ষাস্বরূপ।'},
+      {n:65, bn:'আত-তালাক',        ar:'الطلاق',   t:'md', desc:'তালাকের বিস্তারিত বিধান — আল্লাহকে ভয় করলে পথ বের হয়।'},
+      {n:66, bn:'আত-তাহরিম',       ar:'التحريم',  t:'md', desc:'নবীর ঘরের ঘটনা — ঈমান ও কুফরের দুটি নারীর দৃষ্টান্ত।'},
+    ]},
+  { id:'ph7', name:'পর্ব ৭ — সমাপনী', desc:'শেষ পর্বের নাযিল হওয়া সূরা ও সমাপ্তির বার্তা', period:'হিজরতের ৯ম–১০ম বছর', col:'#3a7855',
+    surahs:[
+      {n:98, bn:'আল-বায়্যিনাহ',    ar:'البينة',   t:'md', desc:'স্পষ্ট প্রমাণ — মুশরিক ও আহলে কিতাব কেন বিচ্ছিন্ন হয়ে গেল।'},
+      {n:110,bn:'আন-নাসর',         ar:'النصر',    t:'md', desc:'বিজয়ের সুসংবাদ — মানুষ দলে দলে ইসলামে আসবে। বিজয়ে বিনম্রতা।'},
+    ]},
+];
+
+/* ─── PROGRESS STATE ─── */
+let doneSet = new Set(JSON.parse(localStorage.getItem('q114v2') || '[]'));
+
+/* ─── BUILD FLOWCHART ─── */
+function buildFlow() {
+  const fc = document.getElementById('flowChart');
+  fc.innerHTML = '';
+  PHASES.forEach((phase, pi) => {
+    if (pi > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'flow-connector';
+      conn.innerHTML = '↓';
+      fc.appendChild(conn);
+    }
+    const wrap = document.createElement('div');
+    wrap.className = 'phase-wrap';
+    wrap.id = phase.id;
+
+    const phDone = phase.surahs.filter(s => doneSet.has(s.n)).length;
+
+    const hdr = document.createElement('div');
+    hdr.className = 'phase-hdr' + (pi === 0 ? ' open' : '');
+    hdr.innerHTML = `
+      <div class="phase-circle" style="background:linear-gradient(135deg,${phase.col}cc,${phase.col}88)">${String(pi).padStart(2,'0')}</div>
+      <div class="phase-info">
+        <div class="phase-name">${phase.name}</div>
+        <div class="phase-desc">${phase.desc}</div>
+      </div>
+      <div class="phase-meta">
+        <div class="phase-count" id="pc-${phase.id}">${phDone}/${phase.surahs.length} সম্পন্ন</div>
+        <div class="phase-period">${phase.period}</div>
+      </div>
+      <div class="phase-arr">▼</div>
+    `;
+    const body = document.createElement('div');
+    body.className = 'phase-body' + (pi === 0 ? ' open' : '');
+
+    hdr.addEventListener('click', () => {
+      hdr.classList.toggle('open');
+      body.classList.toggle('open');
+    });
+
+    const grid = document.createElement('div');
+    grid.className = 'surah-grid';
+
+    phase.surahs.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'surah-card' + (doneSet.has(s.n) ? ' done' : '');
+      card.dataset.n = s.n;
+      card.dataset.bn = s.bn;
+      card.dataset.desc = s.desc;
+      card.dataset.ar = s.ar;
+      card.dataset.phase = phase.id;
+      card.innerHTML = `
+        <div class="sc-top">
+          <div class="sc-num">${s.n}</div>
+          <div class="sc-name">${s.bn}</div>
+          <div class="sc-arabic">${s.ar}</div>
+        </div>
+        <div class="sc-tags">
+          <span class="s-tag ${s.t==='mk'?'st-mk':'st-md'}">${s.t==='mk'?'মক্কি':'মাদানী'}</span>
+          <span class="s-tag" style="background:rgba(255,255,255,.04);color:var(--cream3);border:1px solid rgba(255,255,255,.07)">সূরা ${s.n}</span>
+        </div>
+        <div class="sc-desc">${s.desc}</div>
+        <div class="sc-check">✅</div>
+      `;
+      card.addEventListener('click', () => {
+        if (doneSet.has(s.n)) doneSet.delete(s.n);
+        else doneSet.add(s.n);
+        card.classList.toggle('done', doneSet.has(s.n));
+        localStorage.setItem('q114v2', JSON.stringify([...doneSet]));
+        updateProgress();
+        updatePhaseCount(phase);
+      });
+      grid.appendChild(card);
+    });
+
+    body.appendChild(grid);
+    wrap.appendChild(hdr);
+    wrap.appendChild(body);
+    fc.appendChild(wrap);
+  });
+}
+
+function updateProgress() {
+  const total = PHASES.reduce((a,p) => a + p.surahs.length, 0);
+  const done = doneSet.size;
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+  document.getElementById('fpBarIn').style.width = pct + '%';
+  document.getElementById('fpPct').textContent = `${done}/${total} (${pct}%)`;
+}
+
+function updatePhaseCount(phase) {
+  const el = document.getElementById('pc-' + phase.id);
+  if (el) {
+    const d = phase.surahs.filter(s => doneSet.has(s.n)).length;
+    el.textContent = `${d}/${phase.surahs.length} সম্পন্ন`;
+  }
+}
+
+function resetProgress() {
+  if (!confirm('সব অগ্রগতি মুছে যাবে। নিশ্চিত?')) return;
+  doneSet.clear();
+  localStorage.removeItem('q114v2');
+  document.querySelectorAll('.surah-card').forEach(c => c.classList.remove('done'));
+  PHASES.forEach(p => updatePhaseCount(p));
+  updateProgress();
+}
+
+/* ─── FIXED SEARCH ─── */
+const searchInput  = document.getElementById('flowSearch');
+const searchClear  = document.getElementById('searchClear');
+const searchInfo   = document.getElementById('searchInfo');
+
+function doSearch(raw) {
+  const q = raw.trim().toLowerCase();
+
+  // Toggle clear button
+  searchClear.classList.toggle('show', q.length > 0);
+
+  if (!q) {
+    // Reset: show all, restore original open/close states
+    document.querySelectorAll('#flowChart .surah-card').forEach(c => {
+      c.style.display = '';
+      c.classList.remove('search-hl');
+    });
+    document.querySelectorAll('#flowChart .phase-wrap').forEach(w => {
+      w.style.display = '';
+    });
+    document.querySelectorAll('#flowChart .flow-connector').forEach(c => c.style.display = '');
+    searchInfo.textContent = '';
+    return;
+  }
+
+  let totalMatch = 0;
+
+  document.querySelectorAll('#flowChart .phase-wrap').forEach(wrap => {
+    const cards = wrap.querySelectorAll('.surah-card');
+    let phaseMatch = 0;
+
+    cards.forEach(card => {
+      const bn   = (card.dataset.bn  || '').toLowerCase();
+      const num  = (card.dataset.n   || '').toString();
+      const desc = (card.dataset.desc|| '').toLowerCase();
+      const ar   = (card.dataset.ar  || '');
+
+      const match = bn.includes(q) || num.includes(q) || desc.includes(q) || ar.includes(q);
+
+      card.style.display = match ? '' : 'none';
+      card.classList.toggle('search-hl', match);
+      if (match) { phaseMatch++; totalMatch++; }
+    });
+
+    // Show/hide entire phase block
+    wrap.style.display = phaseMatch > 0 ? '' : 'none';
+
+    // Force-open phases that have matches
+    if (phaseMatch > 0) {
+      const hdr  = wrap.querySelector('.phase-hdr');
+      const body = wrap.querySelector('.phase-body');
+      if (hdr)  hdr.classList.add('open');
+      if (body) body.classList.add('open');
+    }
+  });
+
+  // Hide connectors between hidden phases
+  document.querySelectorAll('#flowChart .flow-connector').forEach(conn => {
+    const prev = conn.previousElementSibling;
+    const next = conn.nextElementSibling;
+    const prevHidden = prev && prev.style.display === 'none';
+    const nextHidden = next && next.style.display === 'none';
+    conn.style.display = (prevHidden && nextHidden) ? 'none' : '';
+  });
+
+  searchInfo.textContent = totalMatch > 0
+    ? `✅ ${totalMatch}টি সূরা পাওয়া গেছে`
+    : '❌ কোনো সূরা পাওয়া যায়নি';
+}
+
+searchInput.addEventListener('input', e => doSearch(e.target.value));
+
+function clearSearch() {
+  searchInput.value = '';
+  doSearch('');
+  searchInput.focus();
+}
+
+// Init
+buildFlow();
+updateProgress();
+</script>
 </body>
 </html>
